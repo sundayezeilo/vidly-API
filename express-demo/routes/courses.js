@@ -31,7 +31,7 @@ router.put('/:id', (req, res) => {
   const course = courses.find(c => c.id === parseInt(req.params.id));
   if (!course){
     return res.status(404).send('The course with the given id was not found!');
-  }  
+  }
   // Otherwise, validate
   // If invalid, return 400 - Bad request
   const { error } = validateCourse(req.body); // returns an object
