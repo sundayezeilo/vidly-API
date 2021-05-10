@@ -26,14 +26,6 @@ if(app.get('env') === 'development') {
 
 app.use(logger);
 
-function validateCourse(course) {
-  const schema = Joi.object({
-    name: Joi.string().min(3).required()
-  })
-
-  return schema.validate(course); // returns an object
-}
-
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => debug(`Listening on port ${port}...`));

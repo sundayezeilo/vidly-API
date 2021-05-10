@@ -63,4 +63,12 @@ router.get('/:id/' , (req , res)=>{
 })
 
 
+function validateCourse(course) {
+  const schema = Joi.object({
+    name: Joi.string().min(3).required()
+  })
+
+  return schema.validate(course); // returns an object
+}
+
 module.exports = router;
