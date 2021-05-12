@@ -50,8 +50,8 @@ router.delete('/:id' , async(req, res)=>{
 
 function validateCustomer(course) {
   const schema = Joi.object({
-    isGold: Joi.boolean().optional(),
-    phone: Joi.string().optional(),
+    isGold: Joi.boolean(),
+    phone: Joi.string(),
     name: Joi.string().min(3).max(50).required()
   });
   return schema.validate(course);
@@ -59,9 +59,9 @@ function validateCustomer(course) {
 
 function validateCustomerUpdate(course) {
   const schema = Joi.object({
-    isGold: Joi.boolean().optional(),
-    phone: Joi.string().optional(),
-    name: Joi.string().min(3).max(50).optional()
+    isGold: Joi.boolean(),
+    phone: Joi.string(),
+    name: Joi.string().min(3).max(50)
   });
   return schema.validate(course);
 }
