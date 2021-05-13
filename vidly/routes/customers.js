@@ -29,7 +29,7 @@ router.post('/', async (req, res) => {
 router.put('/:id', async (req, res) => {
   const { error, value } = validateCustomerUpdate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
-  const customer = await Customer.updateOne({ _id: req.params.id }, value, { new: true });
+  const customer = await Customer.updateOne({ _id: req.params.id }, value);
   if (!customer) return res.status(404).send('The customer with the given ID was not found.');
   return res.send(customer);
 });

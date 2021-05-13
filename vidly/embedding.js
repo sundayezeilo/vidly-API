@@ -8,27 +8,27 @@ mongoose.connect('mongodb://localhost/playground',
 const authorSchema = new mongoose.Schema({
   name: String,
   bio: String,
-  website: String
+  website: String,
 });
 
 const Author = mongoose.model('Author', authorSchema);
 
 const Course = mongoose.model('Course', new mongoose.Schema({
   name: String,
-  authors: [ authorSchema ]
+  authors: [authorSchema],
 }));
 
 async function createCourse(name, authors) {
   const course = new Course({
-    name, 
-    authors
-  }); 
-  
+    name,
+    authors,
+  });
+
   const result = await course.save();
   console.log(result);
 }
 
-async function listCourses() { 
+async function listCourses() {
   const courses = await Course.find();
   console.log(courses);
 }
@@ -51,7 +51,7 @@ async function removeAuthor(courseId, authorId) {
   const course = await Course.findById(courseId);
   const author = course.authors.id(authorId);
   author.remove();
-  course.save();  
+  course.save();
 }
 
 // updateAuthor('609c4faabd088cacba232718');
