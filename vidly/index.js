@@ -4,6 +4,7 @@ const morgan = require('morgan');
 const express = require('express');
 const logger = require('./middleware/logger');
 const genres = require('./routes/genres');
+const movies = require('./routes/movies');
 const customers = require('./routes/customers');
 
 const app = express();
@@ -14,6 +15,7 @@ mongoose.connect('mongodb://localhost/vidly', { useNewUrlParser: true, useUnifie
 
 app.use(express.json());
 app.use('/api/genres', genres);
+app.use('/api/movies', movies);
 app.use('/api/customers', customers);
 app.use(logger);
 
