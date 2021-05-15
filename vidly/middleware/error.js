@@ -1,14 +1,15 @@
 const logger = require('../startup/logging');
 
-module.exports = function(err, req, res, next){
+/* eslint-disable no-unused-vars */
+module.exports = function (err, req, res, next) { // never remove next from here
   logger.error(err.message, err);
 
   // error
   // warn
   // info
   // verbose
-  // debug 
+  // debug
   // silly
 
   res.status(500).send('Something broke!');
-}
+};

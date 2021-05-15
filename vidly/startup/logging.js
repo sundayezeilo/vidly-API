@@ -5,20 +5,20 @@ require('express-async-errors');
 module.exports = winston.createLogger({
   format: winston.format.combine(
     winston.format.colorize(),
-    winston.format.json()
+    winston.format.json(),
   ),
   transports: [
     new winston.transports.File({ filename: 'logs/logfile.log' }),
-    new winston.transports.MongoDB({ 
+    new winston.transports.MongoDB({
       db: 'mongodb://localhost/vidly',
-      level: 'info'
-    })
+      level: 'info',
+    }),
   ],
   exceptionHandlers: [
-    new winston.transports.File({ filename: 'logs/exceptions.log' })
+    new winston.transports.File({ filename: 'logs/exceptions.log' }),
   ],
   rejectionHandlers: [
-    new winston.transports.File({ filename: 'logs/rejections.log' })
+    new winston.transports.File({ filename: 'logs/rejections.log' }),
   ],
-  exitOnError: false
+  exitOnError: false,
 });
