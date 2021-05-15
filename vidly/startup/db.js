@@ -5,8 +5,8 @@ module.exports = function () {
   mongoose.connect('mongodb://localhost/vidly',
     {
       useNewUrlParser: true,
-      useUnifiedTopology: true,
       useCreateIndex: true,
+      useUnifiedTopology: true,
     })
     .then(() => logger.info('Connected to MongoDB...'));
 };
