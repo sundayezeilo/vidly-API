@@ -1,5 +1,5 @@
 node_modules/
 logs
 
-/embedding.js
-/population.js
+embedding.js
+population.js
