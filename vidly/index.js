@@ -1,19 +1,28 @@
-const debug = require('debug')('app:startup');
 const morgan = require('morgan');
 const express = require('express');
+const winston = require('winston');
 const logger = require('./startup/logging');
 const app = express();
 
-
 if (app.get('env') === 'development') {
-  app.use(morgan('tiny'));
+
+  logger.add(new winston.transports.Console({
+    format: winston.format.simple(),
+  }));
+
+  logger.stream = {
+    write: function(message, encoding) {
+      logger.info(message);
+    },
+  };
+  
+  app.use(morgan('tiny', { stream: logger.stream }));
   logger.info('Morgan enabled...');
 }
 
 require('./startup/routes')(app);
 require('./startup/config')();
 require('./startup/db')();
-require('./startup/logging');
 require('./startup/validation')();
 
 
