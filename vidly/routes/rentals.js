@@ -11,7 +11,7 @@ Fawn.init(mongoose);
 
 router.get('/', async (req, res) => {
   const rentals = await Rental.find().sort('-dateOut');
-  res.send(rentals);
+  return res.send(rentals);
 });
 
 router.post('/', async (req, res) => {
@@ -46,9 +46,9 @@ router.post('/', async (req, res) => {
         $inc: { numberInStock: -1 },
       })
       .run();
-    res.send(rental);
+    return res.send(rental);
   } catch (error) {
-    res.status(500).send('Something went wrong');
+    return res.status(500).send('Something went wrong');
   }
 });
 
@@ -57,7 +57,7 @@ router.get('/:id', async (req, res) => {
 
   if (!rental) return res.status(404).send('The rental with the given ID was not found.');
 
-  res.send(rental);
+  return res.send(rental);
 });
 
 module.exports = router;

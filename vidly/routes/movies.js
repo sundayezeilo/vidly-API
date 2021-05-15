@@ -1,4 +1,3 @@
-const mongoose = require('mongoose');
 const express = require('express');
 const { Movie, validate } = require('../models/movie');
 const { Genre } = require('../models/genre');
@@ -7,7 +6,7 @@ const router = express.Router();
 
 router.get('/', async (req, res) => {
   const movies = await Movie.find().sort('name');
-  res.send(movies);
+  return res.send(movies);
 });
 
 router.post('/', async (req, res) => {
@@ -28,7 +27,7 @@ router.post('/', async (req, res) => {
   });
   await movie.save();
 
-  res.send(movie);
+  return res.send(movie);
 });
 
 router.put('/:id', async (req, res) => {
@@ -51,7 +50,7 @@ router.put('/:id', async (req, res) => {
 
   if (!movie) return res.status(404).send('The movie with the given ID was not found.');
 
-  res.send(movie);
+  return res.send(movie);
 });
 
 router.delete('/:id', async (req, res) => {
@@ -59,7 +58,7 @@ router.delete('/:id', async (req, res) => {
 
   if (!movie) return res.status(404).send('The movie with the given ID was not found.');
 
-  res.send(movie);
+  return res.send(movie);
 });
 
 router.get('/:id', async (req, res) => {
@@ -67,7 +66,7 @@ router.get('/:id', async (req, res) => {
 
   if (!movie) return res.status(404).send('The movie with the given ID was not found.');
 
-  res.send(movie);
+  return res.send(movie);
 });
 
 module.exports = router;
