@@ -3,3 +3,5 @@ logs
 
 embedding.js
 population.js
+
+coverage/

@@ -1,4 +1,5 @@
 const request = require('supertest');
+const { Types: { ObjectId } } = require('mongoose');
 const { Genre } = require('../../models/genre');
 const { User } = require('../../models/user');
 const server = require('../../index');
@@ -40,7 +41,13 @@ describe('/api/genres', () => {
     });
 
     it('should return 404 if invalid id is passed', async () => {
-      const res = await request(testServer).get('/api/genres/1234');
+      const res = await request(testServer).get('/api/genres/1');
+      expect(res.status).toBe(404);
+    });
+
+    it('should return 404 if no genre with the given id exists', async () => {
+      const id = new ObjectId(1);
+      const res = await request(testServer).get(`/api/genres/${id}`);
       expect(res.status).toBe(404);
     });
   });
