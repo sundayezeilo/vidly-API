@@ -17,9 +17,9 @@ router.get('/', index);
 
 router.post('/', auth, create);
 
-router.put('/:id', update);
+router.put('/:id', [auth, validateObjectId], update);
 
-router.delete('/:id', [auth, admin], destroy);
+router.delete('/:id', [auth, admin, validateObjectId], destroy);
 
 router.get('/:id', validateObjectId, show);
 

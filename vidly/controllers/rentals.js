@@ -43,7 +43,7 @@ const create = async (req, res) => {
         $inc: { numberInStock: -1 },
       })
       .run();
-    return res.send(rental);
+    return res.status(201).send(rental);
   } catch (error) {
     return res.status(500).send('Something went wrong');
   }

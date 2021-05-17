@@ -19,7 +19,7 @@ const create = async (req, res) => {
   const { error, value } = validateCustomer(req.body);
   if (error) return res.status(400).send(error.details[0].message);
   const customer = new Customer(value);
-  return res.send(await customer.save());
+  return res.status(201).send(await customer.save());
 };
 
 const update = async (req, res) => {

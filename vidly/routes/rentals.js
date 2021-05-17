@@ -1,4 +1,5 @@
 const { Router } = require('express');
+const validateObjectId = require('../middleware/validateObjectId');
 const {
   show,
   index,
@@ -11,6 +12,6 @@ router.get('/', index);
 
 router.post('/', create);
 
-router.get('/:id', show);
+router.get('/:id', validateObjectId, show);
 
 module.exports = router;

@@ -24,7 +24,7 @@ const create = async (req, res) => {
   });
   await movie.save();
 
-  return res.send(movie);
+  return res.status(201).send(movie);
 };
 
 const update = async (req, res) => {

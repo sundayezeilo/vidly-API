@@ -14,7 +14,8 @@
     "no-shadow": "off",
     "no-param-reassign": "off",
     "eol-last": "off",
-    "no-underscore-dangle": "off"
+    "no-underscore-dangle": "off",
+    "global-require": "off"
   },
   "ignorePatterns": [
     "dist/",

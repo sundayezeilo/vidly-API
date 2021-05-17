@@ -1,23 +1,22 @@
 const request = require('supertest');
 const { User } = require('../../models/user');
 const { Genre } = require('../../models/genre');
-const server = require('../../index');
 
-let testServer;
 let token;
+let server;
 
 describe('auth middleware', () => {
   beforeEach(() => {
-    testServer = server;
+    server = require('../../index');
     token = new User().generateAuthToken();
   });
 
   afterEach(async () => {
-    testServer.close();
+    server.close();
     await Genre.remove({});
   });
 
-  const exec = () => request(testServer)
+  const exec = () => request(server)
     .post('/api/genres')
     .set({ 'x-auth-token': token })
     .send({ name: 'genre1' });
