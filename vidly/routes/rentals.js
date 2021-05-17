@@ -1,4 +1,5 @@
 const { Router } = require('express');
+const auth = require('../middleware/auth');
 const validateObjectId = require('../middleware/validateObjectId');
 const {
   show,

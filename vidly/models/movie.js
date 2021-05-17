@@ -16,7 +16,6 @@ const Movie = mongoose.model('Movie', new mongoose.Schema({
   },
   numberInStock: {
     type: Number,
-    required: true,
     min: 0,
     max: 255,
   },

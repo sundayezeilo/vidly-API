@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --watchAll --verbose"
+    "test": "jest --watch --maxWorkers=1"
   },
   "keywords": [],
   "author": "",
@@ -20,6 +20,7 @@
     "joi-objectid": "^3.0.1",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.21",
+    "moment": "^2.29.1",
     "mongoose": "^5.12.8",
     "morgan": "^1.10.0",
     "winston": "3.3.x",
