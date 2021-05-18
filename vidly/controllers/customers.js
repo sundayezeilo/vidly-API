@@ -1,8 +1,4 @@
-const {
-  Customer,
-  validateCustomer,
-  validateCustomerUpdate,
-} = require('../models/customer');
+const { Customer } = require('../models/customer');
 
 const index = async (req, res) => {
   const customers = await Customer.find({}).sort('name');
@@ -16,16 +12,13 @@ const show = async (req, res) => {
 };
 
 const create = async (req, res) => {
-  const { error, value } = validateCustomer(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
-  const customer = new Customer(value);
-  return res.status(201).send(await customer.save());
+  const customer = new Customer(req.body);
+  await customer.save();
+  return res.status(201).send(customer);
 };
 
 const update = async (req, res) => {
-  const { error, value } = validateCustomerUpdate(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
-  const customer = await Customer.updateOne({ _id: req.params.id }, value);
+  const customer = await Customer.updateOne({ _id: req.params.id }, req.body);
   if (!customer) return res.status(404).send('The customer with the given ID was not found.');
   return res.send(customer);
 };

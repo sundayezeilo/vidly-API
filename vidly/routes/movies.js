@@ -1,4 +1,6 @@
 const { Router } = require('express');
+const validate = require('../middleware/validate');
+const { validateMovie } = require('../models/movie');
 const validateObjectId = require('../middleware/validateObjectId');
 
 const {
@@ -13,9 +15,9 @@ const router = Router();
 
 router.get('/', index);
 
-router.post('/', create);
+router.post('/', validate(validateMovie), create);
 
-router.put('/:id', validateObjectId, update);
+router.put('/:id', [validateObjectId, validate(validateMovie)], update);
 
 router.delete('/:id', validateObjectId, destroy);
 

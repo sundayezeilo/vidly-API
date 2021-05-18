@@ -20,9 +20,9 @@ if (app.get('env') === 'development') {
   logger.info('Morgan enabled...');
 }
 
-require('./startup/routes')(app);
 require('./startup/config')();
 require('./startup/db')();
+require('./startup/routes')(app);
 require('./startup/validation')();
 
 const port = process.env.PORT || 3000;

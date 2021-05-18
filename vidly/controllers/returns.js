@@ -1,20 +1,18 @@
-const moment = require('moment');
+const Joi = require('joi');
+const { Movie } = require('../models/movie');
 const { Rental } = require('../models/rental');
 
-const create = async (req, res) => {
-  if (!req.body.customerId) {
-    return res.status(400).send('customerId not provided');
-  }
-
-  if (!req.body.movieId) {
-    return res.status(400).send('movieId not provided');
-  }
-
-  const rental = await Rental.findOne({
-    'movie._id': req.body.movieId,
-    'customer._id': req.body.customerId,
+function validateReturn(genre) {
+  const schema = Joi.object({
+    movieId: Joi.objectId().required(),
+    customerId: Joi.objectId().required(),
   });
 
+  return schema.validate(genre);
+}
+
+const create = async (req, res) => {
+  const rental = await Rental.lookup(req.body.customerId, req.body.movieId);
   if (!rental) {
     return res.status(404).send('No rental found');
   }
@@ -22,13 +20,17 @@ const create = async (req, res) => {
     return res.status(400).send('Return already processed');
   }
 
-  const dateReturned = moment(new Date());
-  rental.dateReturned = dateReturned;
-  const rentalDays = dateReturned.diff(rental.dateOut, 'days');
-  rental.rentalFee = rentalDays * rental.movie.dailyRentalRate;
-  rental.save();
+  rental.return();
 
-  return res.status(200).send();
+  await rental.save();
+
+  await Movie.updateOne(
+    { _id: rental.movie._id }, {
+      $inc: { numberInStock: 1 },
+    },
+  );
+
+  return res.send(rental);
 };
 
-module.exports = create;
+module.exports = { create, validateReturn };

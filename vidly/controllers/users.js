@@ -1,6 +1,6 @@
 const _ = require('lodash');
 const bcrypt = require('bcrypt');
-const { User, validate } = require('../models/user');
+const { User } = require('../models/user');
 
 const show = async (req, res) => {
   const user = await User.findById(req.user._id);
@@ -8,9 +8,6 @@ const show = async (req, res) => {
 };
 
 const create = async (req, res) => {
-  const { error } = validate(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
-
   let user = await User.findOne({ email: req.body.email });
 
   if (user) return res.status(400).send('User already exists!');

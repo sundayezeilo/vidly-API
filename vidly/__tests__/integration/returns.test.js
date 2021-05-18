@@ -3,6 +3,7 @@ const moment = require('moment');
 const request = require('supertest');
 const { User } = require('../../models/user');
 const { Rental } = require('../../models/rental');
+const { Movie } = require('../../models/movie');
 
 describe('/api/returns', () => {
   let server;
@@ -10,6 +11,7 @@ describe('/api/returns', () => {
   let customerId;
   let rental;
   let token;
+  let movie;
 
   const exec = () => request(server)
     .post('/api/returns')
@@ -22,6 +24,16 @@ describe('/api/returns', () => {
     movieId = new ObjectId();
     customerId = new ObjectId();
     token = new User().generateAuthToken();
+
+    movie = new Movie({
+      _id: movieId,
+      title: '12345',
+      dailyRentalRate: 2,
+      genre: { name: '12345' },
+      numberInStock: 10,
+    });
+
+    await movie.save();
 
     rental = new Rental({
       customer: {
@@ -40,8 +52,9 @@ describe('/api/returns', () => {
     await rental.save();
   });
   afterEach(async () => {
-    await Rental.deleteMany({});
     await server.close();
+    await Rental.deleteMany({});
+    await Movie.deleteMany({});
   });
 
   it('should return 401 if customer is not logged in', async () => {
@@ -106,5 +119,20 @@ describe('/api/returns', () => {
 
     const rentalInDb = await Rental.findById(rental._id);
     expect(rentalInDb.rentalFee).toBe(14);
+  });
+
+  it('should increase the movie stock', async () => {
+    await exec();
+
+    const movieInDb = await Movie.findOne({ _id: movieId });
+
+    expect(movieInDb.numberInStock).toBe(movie.numberInStock + 1);
+  });
+
+  it('should return the rental if input is valid', async () => {
+    const res = await exec();
+    expect(Object.keys(res.body)).toEqual(
+      expect.arrayContaining(['_id', 'customer', 'movie', 'dateOut', '__v', 'dateReturned', 'rentalFee']),
+    );
   });
 });
