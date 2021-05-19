@@ -63,16 +63,16 @@
 - Run ```npm start``` to run the app. Default port is 3000, ie the server listens on ```http://localhost:3000```.
 - Send an ```HTTP``` request to any of the following endpoints using any API client such as postman, insomnia, etc:
 
-* POST /api/users
-* GET /api/users/me
+    * POST /api/users
+    * GET /api/users/me
 
-* POST /api/auth
+    * POST /api/auth
 
-* /api/customers
-* /api/genres
-* /api/movies
-* /api/rentals (POST only)
-* /api/returns (POST only)
+    * /api/customers
+    * /api/genres
+    * /api/movies
+    * /api/rentals (POST only)
+    * /api/returns (POST only)
 
 
 ### Live demo [here](https://findmycourse.herokuapp.com/)
