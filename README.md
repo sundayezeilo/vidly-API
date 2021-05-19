@@ -1,6 +1,6 @@
 ## VIDLY API USING Node.js
 
-> In this project, I built a RESTful API, a backend service that allows users to rent movies from a movie rental company. I added a few endpoints to let any user view a list of movies in stock, rent a movie, or return a movie. A user can view a list of movies in stock. But an account is required in order to rent or return a movie. I created the following endpoints for the API client:
+#### In this project, I built a RESTful API, a backend service that allows users to rent movies from a movie rental company. I added a few endpoints to let any user view a list of movies in stock, rent a movie, or return a movie. A user can view a list of movies in stock. But an account is required in order to rent or return a movie. I created the following endpoints for the API client:
 
 ***User***
 - user signup
