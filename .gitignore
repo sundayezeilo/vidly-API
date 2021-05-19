@@ -1,1 +1,5 @@
-express-demo/node_modules/
+logs/
+node_modules/
+
+embedding.js
+population.js
