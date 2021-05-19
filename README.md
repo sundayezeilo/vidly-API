@@ -57,7 +57,7 @@
 
 - Run the command ```npm install``` to install the required dependencies.
 
-- Add JSON Web Token (JWT) HMAC secrete as an environment variable using the key: vidly_jwtPrivateKey.
+- Add JSON Web Token (JWT) HMAC secret as an environment variable using the key: vidly_jwtPrivateKey.
 
 - In the project directory, run:
 - Run ```npm start``` to run the app. Default port is 3000, ie the server listens on ```http://localhost:3000```.
