@@ -75,9 +75,6 @@
     * /api/returns (POST only)
 
 
-### Live demo [here](https://findmycourse.herokuapp.com/)
-
-
 ## Author
 
 👤 **Sunday Uche Ezeilo**
