@@ -1,4 +1,5 @@
 logs/
+coverage/
 node_modules/
 
 embedding.js
