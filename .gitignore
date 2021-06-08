@@ -1,6 +1,7 @@
 logs/
 coverage/
 node_modules/
+middleware/async.js
 
 embedding.js
 population.js
