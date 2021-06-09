@@ -74,6 +74,8 @@
     * /api/rentals (POST only)
     * /api/returns (POST only)
 
+### Live demo [here](https://videorentalsapi.herokuapp.com/api/movies)
+
 
 ## Author
 
