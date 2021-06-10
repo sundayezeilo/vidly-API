@@ -1,3 +1,4 @@
+require('express-async-errors');
 const morgan = require('morgan');
 const express = require('express');
 const winston = require('winston');

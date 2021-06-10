@@ -1,6 +1,5 @@
 const winston = require('winston');
 // require('winston-mongodb');
-require('express-async-errors');
 
 module.exports = winston.createLogger({
   format: winston.format.combine(
