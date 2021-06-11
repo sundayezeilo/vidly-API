@@ -11,5 +11,8 @@ module.exports = (err, req, res, next) => { // never remove next from here
   // debug
   // silly
 
-  res.status(500).send('Something broke!');
+  err.statusCode = err.statusCode || 500;
+  err.status = err.status || 'Something broke';
+
+  res.status(err.statusCode).send(err.status);
 };

@@ -1,6 +1,6 @@
-require('express-async-errors');
 const morgan = require('morgan');
 const express = require('express');
+require('express-async-errors');
 const winston = require('winston');
 const logger = require('./startup/logging');
 
