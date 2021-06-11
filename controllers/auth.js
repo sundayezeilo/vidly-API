@@ -8,7 +8,7 @@ const login = async (req, res) => {
   const user = await User.findOne({ email: req.body.email });
 
   if (!(user && await user.validatePassword(req.body.password)))
-    return res.status(400).send('Invalid email or password.');
+    return res.status(401).send('Invalid email or password.');
 
   const token = user.generateAuthToken();
 
