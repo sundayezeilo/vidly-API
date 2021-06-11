@@ -1,4 +1,5 @@
 const Joi = require('joi');
+const bcrypt = require('bcrypt');
 const config = require('config');
 const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
@@ -36,7 +37,12 @@ function genToken() {
   }, config.get('jwtPrivateKey'));
 }
 
+async function validatePassword(reqPassword) {
+  return await bcrypt.compare(reqPassword, this.password);
+}
+
 userSchema.methods.generateAuthToken = genToken;
+userSchema.methods.validatePassword = validatePassword;
 
 const User = mongoose.model('User', userSchema);
 
@@ -51,5 +57,15 @@ function validateUser(user) {
   return schema.validate(user);
 }
 
-exports.User = User;
-exports.validateUser = validateUser;
+
+function validateLogin(req) {
+  const schema = Joi.object({
+    email: Joi.string().min(5).max(255).email()
+      .required(),
+    password: Joi.string().min(6).max(255).required(),
+  });
+
+  return schema.validate(req);
+}
+
+module.exports = { User, validateUser, validateLogin };

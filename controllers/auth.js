@@ -1,16 +1,5 @@
 const Joi = require('joi');
-const bcrypt = require('bcrypt');
-const { User } = require('../models/user');
-
-function validateLogin(req) {
-  const schema = Joi.object({
-    email: Joi.string().min(5).max(255).email()
-      .required(),
-    password: Joi.string().min(6).max(255).required(),
-  });
-
-  return schema.validate(req);
-}
+const { User, validateLogin } = require('../models/user');
 
 const login = async (req, res) => {
   const { error } = validateLogin(req.body);
@@ -20,7 +9,7 @@ const login = async (req, res) => {
 
   if (!user) return res.status(400).send('Invalid email or password.');
 
-  const validPassword = await bcrypt.compare(req.body.password, user.password);
+  const validPassword = await user.validatePassword(req.body.password);
   if (!validPassword) return res.status(400).send('Invalid email or password.');
 
   const token = user.generateAuthToken();
