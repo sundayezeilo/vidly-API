@@ -28,21 +28,31 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  passwordChangedAt: {
+    type: Date
+  }
 });
 
-function genToken() {
+
+userSchema.methods.generateAuthToken = function() {
   return jwt.sign({
     _id: this._id,
     isAdmin: this.isAdmin,
   }, config.get('jwtPrivateKey'));
 }
 
-async function validatePassword(reqPassword) {
+userSchema.methods.validatePassword = async function(reqPassword) {
   return await bcrypt.compare(reqPassword, this.password);
 }
 
-userSchema.methods.generateAuthToken = genToken;
-userSchema.methods.validatePassword = validatePassword;
+userSchema.methods.changedPasswordAfter = function(JWTTimeStamp) {
+  if (this.passwordChangedAt) {
+    const changedTimeStamp = parseInt(this.passwordChangedAt.getTime() / 1000, 10);
+    return JWTTimeStamp < changedTimeStamp;
+  }
+
+  return false;
+}
 
 const User = mongoose.model('User', userSchema);
 
@@ -52,6 +62,7 @@ function validateUser(user) {
     email: Joi.string().min(5).max(255).email()
       .required(),
     password: Joi.string().min(6).max(255).required(),
+    passwordChangedAt: Joi.date(),
   });
 
   return schema.validate(user);
