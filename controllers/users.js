@@ -18,7 +18,9 @@ const create = async (req, res) => {
 
   await user.save();
   const token = user.generateAuthToken();
-  return res.header('x-auth-token', token).send(_.pick(user, ['name', 'email']));
+  return res
+    .header('x-auth-token', token)
+    .send(_.pick(user, ['name', 'email']));
 };
 
 module.exports = { show, create };

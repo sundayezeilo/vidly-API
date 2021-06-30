@@ -28,7 +28,8 @@ const update = async (req, res) => {
   const genre = await Genre.findById(req.body.genreId);
   if (!genre) return res.status(400).send('Invalid genre.');
 
-  const movie = await Movie.updateOne({ _id: req.params.id },
+  const movie = await Movie.updateOne(
+    { _id: req.params.id },
     {
       title: req.body.title,
       genre: {
@@ -37,9 +38,11 @@ const update = async (req, res) => {
       },
       numberInStock: req.body.numberInStock,
       dailyRentalRate: req.body.dailyRentalRate,
-    });
+    }
+  );
 
-  if (!movie) return res.status(404).send('The movie with the given ID was not found.');
+  if (!movie)
+    return res.status(404).send('The movie with the given ID was not found.');
 
   return res.send(movie);
 };
@@ -47,7 +50,8 @@ const update = async (req, res) => {
 const show = async (req, res) => {
   const movie = await Movie.findById(req.params.id);
 
-  if (!movie) return res.status(404).send('The movie with the given ID was not found.');
+  if (!movie)
+    return res.status(404).send('The movie with the given ID was not found.');
 
   return res.send(movie);
 };
@@ -55,7 +59,8 @@ const show = async (req, res) => {
 const destroy = async (req, res) => {
   const movie = await Movie.deleteOne({ _id: req.params.id });
 
-  if (!movie) return res.status(404).send('The movie with the given ID was not found.');
+  if (!movie)
+    return res.status(404).send('The movie with the given ID was not found.');
 
   return res.send(movie);
 };

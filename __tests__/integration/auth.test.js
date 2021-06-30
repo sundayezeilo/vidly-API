@@ -16,10 +16,11 @@ describe('auth middleware', () => {
     await Genre.remove({});
   });
 
-  const exec = () => request(server)
-    .post('/api/genres')
-    .set({ 'x-auth-token': token })
-    .send({ name: 'genre1' });
+  const exec = () =>
+    request(server)
+      .post('/api/genres')
+      .set({ 'x-auth-token': token })
+      .send({ name: 'genre1' });
 
   it('should return 401 if no token is not provided', async () => {
     token = '';
@@ -35,7 +36,7 @@ describe('auth middleware', () => {
     expect(res.status).toBe(400);
   });
 
-  it('should return 200 if token is valid', async () => {
+  it('should return 201 if token is valid', async () => {
     const res = await exec();
 
     expect(res.status).toBe(201);

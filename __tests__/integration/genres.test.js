@@ -1,12 +1,16 @@
 const request = require('supertest');
-const { Types: { ObjectId } } = require('mongoose');
+const {
+  Types: { ObjectId },
+} = require('mongoose');
 const { Genre } = require('../../models/genre');
 const { User } = require('../../models/user');
 
 let server;
 
 describe('/api/genres', () => {
-  beforeEach(() => { server = require('../../index'); });
+  beforeEach(() => {
+    server = require('../../index');
+  });
   afterEach(async () => {
     await server.close();
     await Genre.remove({});
@@ -51,10 +55,11 @@ describe('/api/genres', () => {
   describe('POST /', () => {
     let token;
     let name;
-    const exec = () => request(server)
-      .post('/api/genres')
-      .set('x-auth-token', token)
-      .send({ name });
+    const exec = () =>
+      request(server)
+        .post('/api/genres')
+        .set('x-auth-token', token)
+        .send({ name });
 
     beforeEach(() => {
       name = 'genre1';
@@ -96,10 +101,11 @@ describe('/api/genres', () => {
     let token;
     let newName;
     let genreId;
-    const exec = async () => request(server)
-      .put(`/api/genres/${genreId}`)
-      .set('x-auth-token', token)
-      .send({ name: newName });
+    const exec = async () =>
+      request(server)
+        .put(`/api/genres/${genreId}`)
+        .set('x-auth-token', token)
+        .send({ name: newName });
 
     beforeEach(async () => {
       const genre = new Genre({ name: 'genre' });
@@ -151,10 +157,11 @@ describe('/api/genres', () => {
   describe('DELETE /:id', () => {
     let token;
     let genreId;
-    const exec = async () => request(server)
-      .delete(`/api/genres/${genreId}`)
-      .set('x-auth-token', token)
-      .send();
+    const exec = async () =>
+      request(server)
+        .delete(`/api/genres/${genreId}`)
+        .set('x-auth-token', token)
+        .send();
 
     beforeEach(async () => {
       const genre = new Genre({ name: 'genre' });

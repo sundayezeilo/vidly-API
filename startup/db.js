@@ -4,8 +4,8 @@ const logger = require('./logging');
 
 module.exports = () => {
   const db = config.get('db');
-  mongoose.connect(db,
-    {
+  mongoose
+    .connect(db, {
       useNewUrlParser: true,
       useCreateIndex: true,
       useUnifiedTopology: true,

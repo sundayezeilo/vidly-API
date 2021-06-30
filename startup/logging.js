@@ -4,7 +4,7 @@ const winston = require('winston');
 module.exports = winston.createLogger({
   format: winston.format.combine(
     winston.format.colorize(),
-    winston.format.json(),
+    winston.format.json()
   ),
   transports: [
     new winston.transports.File({ filename: 'logs/logfile.log' }),

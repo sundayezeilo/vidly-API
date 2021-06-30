@@ -15,22 +15,25 @@ const update = async (req, res) => {
   const genre = await Genre.updateOne(
     { _id: req.params.id },
     { name: req.body.name },
-    { new: true },
+    { new: true }
   );
 
-  if (!genre) return res.status(404).send('The genre with the given ID was not found.');
+  if (!genre)
+    return res.status(404).send('The genre with the given ID was not found.');
   return res.send(genre);
 };
 
 const destroy = async (req, res) => {
   const genre = await Genre.deleteOne({ _id: req.params.id });
-  if (!genre) return res.status(404).send('The genre with the given ID was not found.');
+  if (!genre)
+    return res.status(404).send('The genre with the given ID was not found.');
   return res.send(genre);
 };
 
 const show = async (req, res) => {
   const genre = await Genre.findById(req.params.id);
-  if (!genre) return res.status(404).send('The genre with the given ID was not found.');
+  if (!genre)
+    return res.status(404).send('The genre with the given ID was not found.');
   return res.send(genre);
 };
 

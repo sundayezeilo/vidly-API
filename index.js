@@ -7,9 +7,11 @@ const logger = require('./startup/logging');
 const app = express();
 
 if (app.get('env') === 'development') {
-  logger.add(new winston.transports.Console({
-    format: winston.format.simple(),
-  }));
+  logger.add(
+    new winston.transports.Console({
+      format: winston.format.simple(),
+    })
+  );
 
   logger.stream = {
     write(message) {
@@ -27,6 +29,8 @@ require('./startup/routes')(app);
 require('./startup/validation')();
 
 const port = process.env.PORT || 3000;
-const server = app.listen(port, () => logger.info(`Listening on port ${port}...`));
+const server = app.listen(port, () =>
+  logger.info(`Listening on port ${port}...`)
+);
 
 module.exports = server;

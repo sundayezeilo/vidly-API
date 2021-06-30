@@ -7,7 +7,10 @@ const index = async (req, res) => {
 
 const show = async (req, res) => {
   const customer = await Customer.findOne({ _id: req.params.id });
-  if (!customer) return res.status(404).send('The customer with the given ID was not found.');
+  if (!customer)
+    return res
+      .status(404)
+      .send('The customer with the given ID was not found.');
   return res.send(customer);
 };
 
@@ -19,13 +22,19 @@ const create = async (req, res) => {
 
 const update = async (req, res) => {
   const customer = await Customer.updateOne({ _id: req.params.id }, req.body);
-  if (!customer) return res.status(404).send('The customer with the given ID was not found.');
+  if (!customer)
+    return res
+      .status(404)
+      .send('The customer with the given ID was not found.');
   return res.send(customer);
 };
 
 const destroy = async (req, res) => {
   const customer = await Customer.deleteOne({ _id: req.params.id });
-  if (!customer) return res.status(404).send('The customer with the given ID was not found.');
+  if (!customer)
+    return res
+      .status(404)
+      .send('The customer with the given ID was not found.');
   return res.send(customer);
 };
 

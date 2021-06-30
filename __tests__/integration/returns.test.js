@@ -1,4 +1,6 @@
-const { Types: { ObjectId } } = require('mongoose');
+const {
+  Types: { ObjectId },
+} = require('mongoose');
 const moment = require('moment');
 const request = require('supertest');
 const { User } = require('../../models/user');
@@ -13,10 +15,11 @@ describe('/api/returns', () => {
   let token;
   let movie;
 
-  const exec = () => request(server)
-    .post('/api/returns')
-    .set('x-auth-token', token)
-    .send({ customerId, movieId });
+  const exec = () =>
+    request(server)
+      .post('/api/returns')
+      .set('x-auth-token', token)
+      .send({ customerId, movieId });
 
   beforeEach(async () => {
     server = require('../../index');
@@ -132,7 +135,15 @@ describe('/api/returns', () => {
   it('should return the rental if input is valid', async () => {
     const res = await exec();
     expect(Object.keys(res.body)).toEqual(
-      expect.arrayContaining(['_id', 'customer', 'movie', 'dateOut', '__v', 'dateReturned', 'rentalFee']),
+      expect.arrayContaining([
+        '_id',
+        'customer',
+        'movie',
+        'dateOut',
+        '__v',
+        'dateReturned',
+        'rentalFee',
+      ])
     );
   });
 });

@@ -1,4 +1,6 @@
-const { Types: { ObjectId } } = require('mongoose');
+const {
+  Types: { ObjectId },
+} = require('mongoose');
 const { User } = require('../../../models/user');
 const auth = require('../../../middleware/auth');
 

@@ -1,6 +1,8 @@
 const config = require('config');
 const jwt = require('jsonwebtoken');
-const { Types: { ObjectId } } = require('mongoose');
+const {
+  Types: { ObjectId },
+} = require('mongoose');
 const { User } = require('../../../models/user');
 
 describe('user.generateAuthToken', () => {

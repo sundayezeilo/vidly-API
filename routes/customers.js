@@ -22,7 +22,11 @@ router.get('/:id', validateObjectId, show);
 
 router.post('/', [validate(validateCustomer)], create);
 
-router.put('/:id', [validateObjectId, validate(validateCustomerUpdate)], update);
+router.put(
+  '/:id',
+  [validateObjectId, validate(validateCustomerUpdate)],
+  update
+);
 
 router.delete('/:id', [validateObjectId], destroy);
 
