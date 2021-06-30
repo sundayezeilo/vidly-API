@@ -20,7 +20,7 @@ describe('auth middleware', () => {
     const res = {};
     const next = jest.fn();
 
-    auth(req, res, next);
+    await auth(req, res, next);
 
     expect(req.user).toMatchObject(user);
   });
