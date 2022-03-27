@@ -1,6 +1,7 @@
-const config = require('config');
 const jwt = require('jsonwebtoken');
 const { Types: { ObjectId } } = require('mongoose');
+
+const { config } = require('../../../config/index');
 const { User } = require('../../../models/user');
 
 describe('user.generateAuthToken', () => {
@@ -11,7 +12,7 @@ describe('user.generateAuthToken', () => {
     };
     const user = new User(payload);
     const token = user.generateAuthToken();
-    const decoded = jwt.verify(token, config.get('jwtPrivateKey'));
+    const decoded = jwt.verify(token, config.jwtPrivateKey);
     expect(decoded).toMatchObject(payload);
   });
 });
