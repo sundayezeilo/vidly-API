@@ -1,8 +1,9 @@
 const Joi = require('joi');
 const bcrypt = require('bcrypt');
-const config = require('config');
 const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
+
+const { config } = require('../config/index');
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -34,7 +35,7 @@ function genToken() {
   return jwt.sign({
     _id: this._id,
     isAdmin: this.isAdmin,
-  }, config.get('jwtPrivateKey'));
+  }, config.jwtPrivateKey);
 }
 
 async function validatePassword(reqPassword) {

@@ -1,4 +1,5 @@
 logs/
+.env
 coverage/
 node_modules/
 middleware/async.js

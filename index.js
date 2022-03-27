@@ -4,6 +4,8 @@ require('express-async-errors');
 const winston = require('winston');
 const logger = require('./startup/logging');
 
+const { config } = require('./config/index');
+
 const app = express();
 
 if (app.get('env') === 'development') {
@@ -26,7 +28,7 @@ require('./startup/db')();
 require('./startup/routes')(app);
 require('./startup/validation')();
 
-const port = process.env.PORT || 3000;
+const port = config.port;
 const server = app.listen(port, () => logger.info(`Listening on port ${port}...`));
 
 module.exports = server;
